@@ -9,98 +9,1019 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0a0a0f; --bg-card: #12121a; --bg-card-hover: #1a1a25; --text: #e4e4e7; --text-muted: #71717a; --text-dim: #52525b; --accent: #06b6d4; --accent-glow: rgba(6, 182, 212, 0.15); --accent-2: #8b5cf6; --accent-2-glow: rgba(139, 92, 246, 0.15); --border: #27272a; --mono: 'JetBrains Mono', monospace; --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --text: #e4e4e7;
+            --text-muted: #71717a;
+            --text-dim: #52525b;
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.15);
+            --accent-2: #8b5cf6;
+            --accent-2-glow: rgba(139, 92, 246, 0.15);
+            --border: #27272a;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border) var(--bg); }
-        body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
-        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); background: rgba(10, 10, 15, 0.8); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
-        nav.scrolled { border-bottom-color: var(--border); }
-        .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1.1rem; color: var(--accent); text-decoration: none; letter-spacing: -0.02em; }
-        .nav-logo span { color: var(--text-muted); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-family: var(--mono); letter-spacing: 0.02em; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--accent); }
-        .hero { min-height: 100vh; display: flex; align-items: center; padding: 6rem 2rem 4rem; max-width: 1100px; margin: 0 auto; position: relative; }
-        .hero-content { width: 100%; }
-        .hero-tag { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.2s; }
-        .hero-tag::before { content: '> '; color: var(--text-dim); }
-        .hero h1 { font-family: var(--sans); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.4s; }
-        .hero h1 .accent { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-bio { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; line-height: 1.8; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.6s; }
-        .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.6s ease forwards; animation-delay: 0.8s; }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-family: var(--mono); font-size: 0.85rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; border: 1px solid var(--border); color: var(--text); background: var(--bg-card); }
-        .btn:hover { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); transform: translateY(-1px); }
-        .btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
-        .btn-primary:hover { background: #0891b2; border-color: #0891b2; color: var(--bg); box-shadow: 0 0 30px var(--accent-glow); }
-        .hero-grid { position: absolute; right: -5%; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0.04; background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 40px 40px; border-radius: 50%; pointer-events: none; }
-        section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
-        .section-label { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
-        .section-label::before { content: '// '; color: var(--text-dim); }
-        .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-        .about-text p { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1.05rem; }
-        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: all 0.3s; }
-        .stat-card:hover { border-color: var(--accent); background: var(--accent-glow); }
-        .stat-number { font-family: var(--mono); font-size: 1.75rem; font-weight: 700; color: var(--accent); }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
-        .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
-        .tag { font-family: var(--mono); font-size: 0.7rem; padding: 0.35rem 0.75rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; color: var(--text-muted); letter-spacing: 0.02em; }
-        .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent-2), transparent); }
-        .timeline-item { position: relative; padding-bottom: 3rem; padding-left: 2rem; }
-        .timeline-item::before { content: ''; position: absolute; left: -2.35rem; top: 0.35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); border: 2px solid var(--bg); }
-        .timeline-item:last-child { padding-bottom: 0; }
-        .timeline-company { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
-        .timeline-role { font-size: 1.25rem; font-weight: 600; margin: 0.25rem 0; }
-        .timeline-meta { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.75rem; }
-        .timeline-desc { color: var(--text-muted); font-size: 0.95rem; max-width: 600px; }
-        .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-        .blog-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
-        .blog-card:hover { border-color: var(--accent); background: var(--bg-card-hover); transform: translateY(-2px); }
-        .blog-date { font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.05em; }
-        .blog-card h3 { font-size: 1.15rem; font-weight: 600; margin: 0.75rem 0 0.5rem; letter-spacing: -0.01em; }
-        .blog-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-        .blog-tag { display: inline-block; font-family: var(--mono); font-size: 0.65rem; padding: 0.2rem 0.5rem; background: var(--accent-glow); color: var(--accent); border-radius: 4px; margin-top: 1rem; }
-        .contact-section { text-align: center; padding: 8rem 2rem; }
-        .contact-section .section-title { margin-bottom: 1rem; }
-        .contact-subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .contact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 0.75rem; transition: all 0.3s; min-width: 200px; justify-content: center; }
-        .contact-card:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
-        .contact-card svg { width: 20px; height: 20px; color: var(--accent); }
-        .contact-card span { font-family: var(--mono); font-size: 0.85rem; }
-        footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); }
-        footer p { font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim); }
-        footer .heart { color: var(--accent); }
-        .divider { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-        .divider hr { border: none; border-top: 1px solid var(--border); }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent); margin-left: 2px; animation: blink 1s step-end infinite; vertical-align: text-bottom; }
-        @keyframes blink { 50% { opacity: 0; } }
-        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text-muted); margin: 4px 0; transition: all 0.3s; }
-        @media (max-width: 768px) { .nav-toggle { display: block; } .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); } .nav-links.open { display: flex; } .about-grid { grid-template-columns: 1fr; } .hero-grid { display: none; } .blog-grid { grid-template-columns: 1fr; } .contact-links { flex-direction: column; align-items: center; } }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) var(--bg);
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ====== NAV ====== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span {
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-family: var(--mono);
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero-tag {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero-tag::before {
+            content: '> ';
+            color: var(--text-dim);
+        }
+
+        .hero h1 {
+            font-family: var(--sans);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .hero h1 .accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-bio {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--bg-card);
+        }
+
+        .btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #0891b2;
+            border-color: #0891b2;
+            color: var(--bg);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        /* Floating grid pattern */
+        .hero-grid {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            height: 400px;
+            opacity: 0.04;
+            background-image:
+                linear-gradient(var(--accent) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 40px 40px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ====== SECTIONS ====== */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '// ';
+            color: var(--text-dim);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+        }
+
+        /* ====== ABOUT ====== */
+        .about-intro {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-bottom: 3rem;
+        }
+
+        .about-photo {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 3 / 4;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .about-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            pointer-events: none;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .stat-number {
+            font-family: var(--mono);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Tags */
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* ====== PHOTO STRIP ====== */
+        .photo-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 4rem;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+            transition: all 0.4s ease;
+        }
+
+        .photo-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(6, 182, 212, 0.1);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-card .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 0.75rem 0.75rem;
+            background: linear-gradient(to top, rgba(10, 10, 15, 0.9), transparent);
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-card:hover .photo-label {
+            opacity: 1;
+        }
+
+        /* ====== CAREER PHOTOS ====== */
+        .career-photos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            max-width: 600px;
+        }
+
+        .career-photo {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 4 / 3;
+            transition: all 0.3s ease;
+        }
+
+        .career-photo:hover {
+            border-color: var(--accent);
+        }
+
+        .career-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ====== EXPERIENCE ====== */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-2), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.35rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+            border: 2px solid var(--bg);
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-company {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .timeline-role {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0.25rem 0;
+        }
+
+        .timeline-meta {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 600px;
+        }
+
+        /* ====== BLOG ====== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .blog-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .blog-date {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+        }
+
+        .blog-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 0.75rem 0 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        /* ====== CONTACT ====== */
+        .contact-section {
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .contact-section .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .contact-card svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .contact-card span {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+        }
+
+        /* ====== FOOTER ====== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        footer .heart {
+            color: var(--accent);
+        }
+
+        /* ====== DIVIDER ====== */
+        .divider {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .divider hr {
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ====== CURSOR BLINK ====== */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--accent);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* ====== MOBILE NAV ====== */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--text-muted);
+            margin: 4px 0;
+            transition: all 0.3s;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .about-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .about-photo {
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-grid {
+                display: none;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-strip {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .career-photos {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- NAV -->
     <nav id="navbar">
         <a href="#" class="nav-logo">ggw<span>.me</span></a>
-        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-        <ul class="nav-links"><li><a href="#about">about</a></li><li><a href="#experience">experience</a></li><li><a href="#blog">blog</a></li><li><a href="#contact">contact</a></li></ul>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#about">about</a></li>
+            <li><a href="#experience">experience</a></li>
+            <li><a href="#blog">blog</a></li>
+            <li><a href="#contact">contact</a></li>
+        </ul>
     </nav>
-    <section class="hero"><div class="hero-grid"></div><div class="hero-content"><p class="hero-tag">hello, world</p><h1>I'm <span class="accent">Greg Wilcox</span><span class="cursor"></span></h1><p class="hero-bio">Senior Technical Program Manager at Amazon. 20+ years turning complex problems into elegant solutions — from AT&T to Microsoft to Amazon. Tech enthusiast, baseball fan, and always planning the next adventure.</p><div class="hero-links"><a href="#contact" class="btn btn-primary">Get in touch</a><a href="#about" class="btn">Learn more</a></div></div></section>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <p class="hero-tag">hello, world</p>
+            <h1>I'm <span class="accent">Greg Wilcox</span><span class="cursor"></span></h1>
+            <p class="hero-bio">
+                Senior Technical Program Manager at Amazon. 20+ years turning complex problems
+                into elegant solutions — from AT&T to Microsoft to Amazon. Tech enthusiast,
+                baseball fan, and always planning the next adventure.
+            </p>
+            <div class="hero-links">
+                <a href="#contact" class="btn btn-primary">Get in touch</a>
+                <a href="#about" class="btn">Learn more</a>
+            </div>
+        </div>
+    </section>
+
     <div class="divider"><hr></div>
-    <section id="about" class="fade-in"><p class="section-label">About</p><h2 class="section-title">A bit about me</h2><div class="about-grid"><div class="about-text"><p>I'm a PMP-certified program manager and passionate problem solver with over two decades navigating the intersection of technology, people, and process. Currently, I lead security programs at Amazon from Irvine, California.</p><p>I've always been a tech geek at heart. My journey started in Twin Falls, Idaho, and has taken me from retail floors to enterprise workforce transformation at AT&T, through program management at Microsoft, and into security at Amazon. Along the way, I've learned that the best solutions come from clear communication, relentless curiosity, and a genuine love for understanding how things work.</p><p>When I'm not wrangling programs, you'll find me obsessing over the Mariners during baseball season, exploring new places around the world with my husband Joe and our mini pinscher Ellie, or geeking out over the latest in tech. From cruising the Caribbean to wandering through Southeast Asia, travel is my reset button.</p><div class="tag-list"><span class="tag">Program Management</span><span class="tag">Security</span><span class="tag">Agile / Scrum</span><span class="tag">Process Automation</span><span class="tag">GRC</span><span class="tag">Workforce Transformation</span><span class="tag">Operations</span><span class="tag">PMP</span></div></div><div class="about-stats"><div class="stat-card"><div class="stat-number">20+</div><div class="stat-label">Years in Tech</div></div><div class="stat-card"><div class="stat-number">PMP</div><div class="stat-label">Certified</div></div><div class="stat-card"><div class="stat-number">PSM I</div><div class="stat-label">Scrum Master</div></div><div class="stat-card"><div class="stat-number">GRCP</div><div class="stat-label">GRC Professional</div></div></div></div></section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in">
+        <p class="section-label">About</p>
+        <h2 class="section-title">A bit about me</h2>
+
+        <div class="about-intro">
+            <div class="about-photo">
+                <img src="images/greg-headshot.jpg" alt="Greg Wilcox" loading="lazy">
+            </div>
+            <div class="about-text">
+                <p>
+                    I'm a PMP-certified program manager and passionate problem solver with over two decades
+                    navigating the intersection of technology, people, and process. Currently, I lead security
+                    programs at Amazon from Irvine, California.
+                </p>
+                <p>
+                    I've always been a tech geek at heart. My journey started in Twin Falls, Idaho, and has
+                    taken me from retail floors to enterprise workforce transformation at AT&T, through
+                    program management at Microsoft, and into security at Amazon. Along the way, I've
+                    learned that the best solutions come from clear communication, relentless curiosity,
+                    and a genuine love for understanding how things work.
+                </p>
+                <p>
+                    When I'm not wrangling programs, you'll find me obsessing over the Mariners during
+                    baseball season, exploring new places around the world with my husband Joe and our
+                    mini pinscher Ellie, or geeking out over the latest in tech. From cruising the Caribbean
+                    to wandering through Southeast Asia, travel is my reset button.
+                </p>
+                <div class="tag-list">
+                    <span class="tag">Program Management</span>
+                    <span class="tag">Security</span>
+                    <span class="tag">Agile / Scrum</span>
+                    <span class="tag">Process Automation</span>
+                    <span class="tag">GRC</span>
+                    <span class="tag">Workforce Transformation</span>
+                    <span class="tag">Operations</span>
+                    <span class="tag">PMP</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-stats">
+            <div class="stat-card">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Years in Tech</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">PMP</div>
+                <div class="stat-label">Certified</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">PSM I</div>
+                <div class="stat-label">Scrum Master</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">GRCP</div>
+                <div class="stat-label">GRC Professional</div>
+            </div>
+        </div>
+
+        <!-- Photo strip -->
+        <div class="photo-strip fade-in">
+            <div class="photo-card">
+                <img src="images/greg-beach-portrait.jpg" alt="Greg on a tropical beach" loading="lazy">
+                <div class="photo-label">Island life</div>
+            </div>
+            <div class="photo-card">
+                <img src="images/greg-joe-hogwarts.jpg" alt="Greg and Joe at Hogwarts" loading="lazy">
+                <div class="photo-label">Wizarding World with Joe</div>
+            </div>
+            <div class="photo-card">
+                <img src="images/greg-joe-concert.jpg" alt="Greg and Joe at a concert" loading="lazy">
+                <div class="photo-label">Concert nights</div>
+            </div>
+            <div class="photo-card">
+                <img src="images/greg-disney.jpg" alt="Greg with Mickey Mouse at Disney" loading="lazy">
+                <div class="photo-label">Never too old for Disney</div>
+            </div>
+        </div>
+    </section>
+
     <div class="divider"><hr></div>
-    <section id="experience" class="fade-in"><p class="section-label">Experience</p><h2 class="section-title">Where I've been</h2><div class="timeline"><div class="timeline-item"><p class="timeline-company">Early Career</p><h3 class="timeline-role">Edge Wireless &amp; Diverse Communications</h3><p class="timeline-meta">Jan 2004 — Jul 2005 · Twin Falls, ID → Boise, ID</p><p class="timeline-desc">Where it all started — field development and regional retail management in the Idaho telecom scene. Built the foundation for a career in tech.</p></div><div class="timeline-item"><p class="timeline-company">AT&T · 14+ years</p><h3 class="timeline-role">Retail Sales Consultant → Associate Director</h3><p class="timeline-meta">Jul 2005 — Aug 2019 · Seattle · Redmond · Dallas</p><p class="timeline-desc">Grew from retail sales consultant to Associate Director across a 14-year run. Led workforce transformation initiatives, built cloud-based automation tools for 25,000+ hires, launched onboarding systems that saved $1.2M, managed 20+ training programs, and led a team of 25 in retail. Won the AT&T Summit award and was named LEAGUE Member of the Year for management.</p></div><div class="timeline-item"><p class="timeline-company">Microsoft · ~3 years</p><h3 class="timeline-role">Program Manager → Senior Program Manager Lead</h3><p class="timeline-meta">Sep 2019 — Jun 2022 · Redmond, WA → Scottsdale, AZ</p><p class="timeline-desc">Progressed from Program Manager 2 through Senior Program Manager to Senior Program Manager Lead. Managed strategic programs across the organization, growing scope and impact at each level.</p></div><div class="timeline-item"><p class="timeline-company">Amazon</p><h3 class="timeline-role">Senior Technical Program Manager</h3><p class="timeline-meta">Jun 2022 — Present · Irvine, CA</p><p class="timeline-desc">Leading programs across Amazon's business security teams. Driving cross-functional initiatives that protect customers and scale with the business.</p></div></div></section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="fade-in">
+        <p class="section-label">Experience</p>
+        <h2 class="section-title">Where I've been</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <p class="timeline-company">Early Career</p>
+                <h3 class="timeline-role">Edge Wireless &amp; Diverse Communications</h3>
+                <p class="timeline-meta">Jan 2004 — Jul 2005 &middot; Twin Falls, ID → Boise, ID</p>
+                <p class="timeline-desc">
+                    Where it all started — field development and regional retail management
+                    in the Idaho telecom scene. Built the foundation for a career in tech.
+                </p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-company">AT&T &middot; 14+ years</p>
+                <h3 class="timeline-role">Retail Sales Consultant → Associate Director</h3>
+                <p class="timeline-meta">Jul 2005 — Aug 2019 &middot; Seattle · Redmond · Dallas</p>
+                <p class="timeline-desc">
+                    Grew from retail sales consultant to Associate Director across a 14-year run.
+                    Led workforce transformation initiatives, built cloud-based automation tools for 25,000+ hires,
+                    launched onboarding systems that saved $1.2M, managed 20+ training programs, and
+                    led a team of 25 in retail. Won the AT&T Summit award and was named LEAGUE
+                    Member of the Year for management.
+                </p>
+                <div class="career-photos">
+                    <div class="career-photo">
+                        <img src="images/greg-make-it-matter.jpg" alt="Collaborating at the Make It Matter wall" loading="lazy">
+                    </div>
+                    <div class="career-photo">
+                        <img src="images/greg-att-live-proud.jpg" alt="AT&T Live Proud pride event" loading="lazy">
+                    </div>
+                    <div class="career-photo">
+                        <img src="images/greg-att-project-flex.jpg" alt="AT&T Project Flex team" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-company">Microsoft &middot; ~3 years</p>
+                <h3 class="timeline-role">Program Manager → Senior Program Manager Lead</h3>
+                <p class="timeline-meta">Sep 2019 — Jun 2022 &middot; Redmond, WA → Scottsdale, AZ</p>
+                <p class="timeline-desc">
+                    Progressed from Program Manager 2 through Senior Program Manager to
+                    Senior Program Manager Lead. Managed strategic programs across the organization,
+                    growing scope and impact at each level.
+                </p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-company">Amazon</p>
+                <h3 class="timeline-role">Senior Technical Program Manager</h3>
+                <p class="timeline-meta">Jun 2022 — Present &middot; Irvine, CA</p>
+                <p class="timeline-desc">
+                    Leading programs across Amazon's business security teams.
+                    Driving cross-functional initiatives that protect customers and scale with the business.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <div class="divider"><hr></div>
-    <section id="blog" class="fade-in"><p class="section-label">Blog</p><h2 class="section-title">Thoughts & writing</h2><div class="blog-grid"><a href="#" class="blog-card"><p class="blog-date">Coming Soon</p><h3>From Retail Floor to Amazon Security</h3><p>How a non-traditional path through AT&T and Microsoft shaped a career in tech leadership.</p><span class="blog-tag">career</span></a><a href="#" class="blog-card"><p class="blog-date">Coming Soon</p><h3>The Tech I'm Excited About Right Now</h3><p>A lifelong tech geek's take on what's actually worth paying attention to.</p><span class="blog-tag">tech</span></a><a href="#" class="blog-card"><p class="blog-date">Coming Soon</p><h3>Travel Log: Across the Pacific</h3><p>Highlights from our Philippines and Taiwan trip — temples, beaches, and pride.</p><span class="blog-tag">travel</span></a></div></section>
+
+    <!-- BLOG -->
+    <section id="blog" class="fade-in">
+        <p class="section-label">Blog</p>
+        <h2 class="section-title">Thoughts & writing</h2>
+        <div class="blog-grid">
+            <a href="#" class="blog-card">
+                <p class="blog-date">Coming Soon</p>
+                <h3>From Retail Floor to Amazon Security</h3>
+                <p>How a non-traditional path through AT&T and Microsoft shaped a career in tech leadership.</p>
+                <span class="blog-tag">career</span>
+            </a>
+            <a href="#" class="blog-card">
+                <p class="blog-date">Coming Soon</p>
+                <h3>The Tech I'm Excited About Right Now</h3>
+                <p>A lifelong tech geek's take on what's actually worth paying attention to.</p>
+                <span class="blog-tag">tech</span>
+            </a>
+            <a href="#" class="blog-card">
+                <p class="blog-date">Coming Soon</p>
+                <h3>Travel Log: Across the Pacific</h3>
+                <p>Highlights from our Philippines and Taiwan trip — temples, beaches, and pride.</p>
+                <span class="blog-tag">travel</span>
+            </a>
+        </div>
+    </section>
+
     <div class="divider"><hr></div>
-    <section id="contact" class="contact-section fade-in"><p class="section-label">Contact</p><h2 class="section-title">Let's connect</h2><p class="contact-subtitle">Whether it's about tech, program management, travel recs, or Mariners hot takes — I'd love to hear from you.</p><div class="contact-links"><a href="mailto:greg@ggw.me" class="contact-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>greg@ggw.me</span></a><a href="https://linkedin.com/in/iamgregwilcox" target="_blank" rel="noopener" class="contact-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a><a href="https://facebook.com/gregwilcox" target="_blank" rel="noopener" class="contact-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span>Facebook</span></a><a href="https://x.com/GregWilcox" target="_blank" rel="noopener" class="contact-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"/></svg><span>X / Twitter</span></a><a href="https://www.tiktok.com/@gregdub" target="_blank" rel="noopener" class="contact-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg><span>TikTok</span></a></div></section>
-    <footer><p>&copy; 2026 Greg Wilcox &middot; Built with <span class="heart">&hearts;</span> and too much coffee</p></footer>
-    <script>const nav=document.getElementById('navbar');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible')}})},{threshold:0.1});document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'});document.querySelector('.nav-links').classList.remove('open')}})})</script>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section fade-in">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's connect</h2>
+        <p class="contact-subtitle">
+            Whether it's about tech, program management, travel recs, or Mariners hot takes — I'd love to hear from you.
+        </p>
+        <div class="contact-links">
+            <a href="mailto:greg@ggw.me" class="contact-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <span>greg@ggw.me</span>
+            </a>
+            <a href="https://linkedin.com/in/iamgregwilcox" target="_blank" rel="noopener" class="contact-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <span>LinkedIn</span>
+            </a>
+            <a href="https://facebook.com/gregwilcox" target="_blank" rel="noopener" class="contact-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                <span>Facebook</span>
+            </a>
+            <a href="https://x.com/GregWilcox" target="_blank" rel="noopener" class="contact-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+                <span>X / Twitter</span>
+            </a>
+            <a href="https://www.tiktok.com/@gregdub" target="_blank" rel="noopener" class="contact-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                <span>TikTok</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Greg Wilcox &middot; Built with <span class="heart">&hearts;</span> and too much coffee</p>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Fade in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelector('.nav-links').classList.remove('open');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
