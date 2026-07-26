@@ -4,7 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Greg Wilcox | ggw.me</title>
-    <meta name="description" content="Greg Wilcox — Senior Technical Program Manager at Amazon, tech enthusiast, and passionate problem solver with 20+ years in tech.">
+    <meta name="description" content="Greg Wilcox — Manager of Security Tech Program at Amazon, leading a team of security TPMs. 20+ years in tech, PMP certified. Traveler, smart-home tinkerer, and Mariners fan based in San Diego.">
+    <link rel="canonical" href="https://ggw.me/">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="author" content="Greg Wilcox">
+
+    <!-- Social preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ggw.me/">
+    <meta property="og:site_name" content="ggw.me">
+    <meta property="og:title" content="Greg Wilcox — Security Program Leader at Amazon">
+    <meta property="og:description" content="Manager of Security Tech Program at Amazon, leading a team of security TPMs. 20+ years turning complex problems into elegant solutions.">
+    <meta property="og:image" content="https://ggw.me/images/greg-headshot.jpg">
+    <meta property="og:image:alt" content="Greg Wilcox">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Greg Wilcox — Security Program Leader at Amazon">
+    <meta name="twitter:description" content="Manager of Security Tech Program at Amazon, leading a team of security TPMs. 20+ years turning complex problems into elegant solutions.">
+    <meta name="twitter:image" content="https://ggw.me/images/greg-headshot.jpg">
+    <meta name="twitter:creator" content="@GregWilcox">
+
+    <!-- Favicon: inline SVG, no extra request -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0f'/%3E%3Ctext x='50' y='68' font-family='ui-monospace,monospace' font-size='52' font-weight='700' fill='%2306b6d4' text-anchor='middle'%3Eg%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="images/greg-headshot.jpg">
+
+    <!-- If JS is unavailable, the scroll-reveal never fires. Show everything. -->
+    <noscript>
+        <style>
+            .fade-in { opacity: 1 !important; transform: none !important; }
+            .photo-label { opacity: 1 !important; }
+        </style>
+    </noscript>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Greg Wilcox",
+      "url": "https://ggw.me/",
+      "image": "https://ggw.me/images/greg-headshot.jpg",
+      "jobTitle": "Manager, Security Tech Program",
+      "worksFor": { "@type": "Organization", "name": "Amazon" },
+      "email": "mailto:greg@ggw.me",
+      "address": { "@type": "PostalAddress", "addressLocality": "San Diego", "addressRegion": "CA", "addressCountry": "US" },
+      "alumniOf": [
+        { "@type": "Organization", "name": "Microsoft" },
+        { "@type": "Organization", "name": "AT&T" }
+      ],
+      "hasCredential": [
+        { "@type": "EducationalOccupationalCredential", "name": "Project Management Professional (PMP)" },
+        { "@type": "EducationalOccupationalCredential", "name": "Professional Scrum Master I (PSM I)" },
+        { "@type": "EducationalOccupationalCredential", "name": "GRC Professional (GRCP)" }
+      ],
+      "knowsAbout": ["Program Management", "Information Security", "Governance Risk and Compliance", "Agile and Scrum", "Process Automation", "Workforce Transformation"],
+      "sameAs": [
+        "https://www.linkedin.com/in/iamgregwilcox",
+        "https://x.com/GregWilcox",
+        "https://www.facebook.com/gregwilcox",
+        "https://www.tiktok.com/@gregdub",
+        "https://www.instagram.com/gr3gdub"
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -652,6 +712,18 @@
             transform: translateY(0);
         }
 
+        /* Never let a reveal animation hide content. If the visitor prefers
+           reduced motion, skip the animation entirely and show everything. */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            .cursor { animation: none; }
+        }
+
         /* ====== CURSOR BLINK ====== */
         .cursor {
             display: inline-block;
@@ -772,9 +844,10 @@
             <p class="hero-tag">hello, world</p>
             <h1>I'm <span class="accent">Greg Wilcox</span><span class="cursor"></span></h1>
             <p class="hero-bio">
-                Senior Technical Program Manager at Amazon. 20+ years turning complex problems
-                into elegant solutions — from AT&T to Microsoft to Amazon. Tech enthusiast,
-                baseball fan, and always planning the next adventure.
+                Manager of Security Tech Program at Amazon, leading a team of security TPMs.
+                20+ years turning complex problems into elegant solutions — from AT&T to
+                Microsoft to Amazon. Tech enthusiast, baseball fan, and always planning the
+                next adventure.
             </p>
             <div class="hero-links">
                 <a href="#contact" class="btn btn-primary">Get in touch</a>
@@ -792,13 +865,17 @@
 
         <div class="about-intro">
             <div class="about-photo">
-                <img src="images/greg-headshot.jpg" alt="Greg Wilcox" loading="lazy">
+                <picture>
+                    <source srcset="images/greg-headshot.webp" type="image/webp">
+                    <img src="images/greg-headshot.jpg" width="720" height="960" alt="Greg Wilcox" loading="lazy">
+                </picture>
             </div>
             <div class="about-text">
                 <p>
                     I'm a PMP-certified program manager and passionate problem solver with over two decades
-                    navigating the intersection of technology, people, and process. Currently, I lead security
-                    programs at Amazon from Irvine, California.
+                    navigating the intersection of technology, people, and process. Currently I lead a team
+                    of security technical program managers at Amazon, working out of the Irvine, California
+                    campus and living down the coast in San Diego.
                 </p>
                 <p>
                     I've always been a tech geek at heart. My journey started in Twin Falls, Idaho, and has
@@ -848,19 +925,31 @@
         <!-- Photo strip -->
         <div class="photo-strip fade-in">
             <div class="photo-card">
-                <img src="images/greg-beach-portrait.jpg" alt="Greg on a tropical beach" loading="lazy">
+                <picture>
+                    <source srcset="images/greg-beach-portrait.webp" type="image/webp">
+                    <img src="images/greg-beach-portrait.jpg" width="700" height="934" alt="Greg on a tropical beach" loading="lazy">
+                </picture>
                 <div class="photo-label">Island life</div>
             </div>
             <div class="photo-card">
-                <img src="images/greg-joe-hogwarts.jpg" alt="Greg and Joe at Hogwarts" loading="lazy">
+                <picture>
+                    <source srcset="images/greg-joe-hogwarts.webp" type="image/webp">
+                    <img src="images/greg-joe-hogwarts.jpg" width="700" height="875" alt="Greg and Joe at Hogwarts" loading="lazy">
+                </picture>
                 <div class="photo-label">Wizarding World with Joe</div>
             </div>
             <div class="photo-card">
-                <img src="images/greg-joe-concert.jpg" alt="Greg and Joe at a concert" loading="lazy">
+                <picture>
+                    <source srcset="images/greg-joe-concert.webp" type="image/webp">
+                    <img src="images/greg-joe-concert.jpg" width="700" height="934" alt="Greg and Joe at a concert" loading="lazy">
+                </picture>
                 <div class="photo-label">Concert nights</div>
             </div>
             <div class="photo-card">
-                <img src="images/greg-disney.jpg" alt="Greg with Mickey Mouse at Disney" loading="lazy">
+                <picture>
+                    <source srcset="images/greg-disney.webp" type="image/webp">
+                    <img src="images/greg-disney.jpg" width="700" height="789" alt="Greg with Mickey Mouse at Disney" loading="lazy">
+                </picture>
                 <div class="photo-label">Never too old for Disney</div>
             </div>
         </div>
@@ -895,13 +984,22 @@
                 </p>
                 <div class="career-photos">
                     <div class="career-photo">
-                        <img src="images/greg-make-it-matter.jpg" alt="Collaborating at the Make It Matter wall" loading="lazy">
+                        <picture>
+                            <source srcset="images/greg-make-it-matter.webp" type="image/webp">
+                            <img src="images/greg-make-it-matter.jpg" width="560" height="420" alt="Collaborating at the Make It Matter wall" loading="lazy">
+                        </picture>
                     </div>
                     <div class="career-photo">
-                        <img src="images/greg-att-live-proud.jpg" alt="AT&T Live Proud pride event" loading="lazy">
+                        <picture>
+                            <source srcset="images/greg-att-live-proud.webp" type="image/webp">
+                            <img src="images/greg-att-live-proud.jpg" width="560" height="564" alt="AT&T Live Proud pride event" loading="lazy">
+                        </picture>
                     </div>
                     <div class="career-photo">
-                        <img src="images/greg-att-project-flex.jpg" alt="AT&T Project Flex team" loading="lazy">
+                        <picture>
+                            <source srcset="images/greg-att-project-flex.webp" type="image/webp">
+                            <img src="images/greg-att-project-flex.jpg" width="560" height="560" alt="AT&T Project Flex team" loading="lazy">
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -917,11 +1015,12 @@
             </div>
             <div class="timeline-item">
                 <p class="timeline-company">Amazon</p>
-                <h3 class="timeline-role">Senior Technical Program Manager</h3>
+                <h3 class="timeline-role">Senior TPM → Manager, Security Tech Program</h3>
                 <p class="timeline-meta">Jun 2022 — Present &middot; Irvine, CA</p>
                 <p class="timeline-desc">
-                    Leading programs across Amazon's business security teams.
-                    Driving cross-functional initiatives that protect customers and scale with the business.
+                    Leading programs across Amazon's business security teams, driving cross-functional
+                    initiatives that protect customers and scale with the business. Promoted to Manager
+                    in 2026 — now leading a team of security technical program managers.
                 </p>
             </div>
         </div>
