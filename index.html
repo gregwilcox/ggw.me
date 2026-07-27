@@ -602,6 +602,64 @@
             margin-top: 1rem;
         }
 
+        /* ====== RECOMMENDATIONS ====== */
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .quote-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 0;
+            transition: all 0.3s;
+        }
+
+        .quote-card:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .quote-card blockquote {
+            margin: 0 0 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .quote-card figcaption {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .quote-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .quote-role {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.03em;
+        }
+
+        .quote-source {
+            margin-top: 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .quote-source a {
+            color: var(--text-muted);
+        }
+
         /* ====== CONTACT ====== */
         .contact-section {
             text-align: center;
@@ -832,7 +890,7 @@
         <ul class="nav-links">
             <li><a href="#about">about</a></li>
             <li><a href="#experience">experience</a></li>
-            <li><a href="#blog">blog</a></li>
+            <li><a href="#recommendations">recommendations</a></li>
             <li><a href="#contact">contact</a></li>
         </ul>
     </nav>
@@ -1016,7 +1074,7 @@
             <div class="timeline-item">
                 <p class="timeline-company">Amazon</p>
                 <h3 class="timeline-role">Senior TPM → Manager, Technical Security Programs</h3>
-                <p class="timeline-meta">Jun 2022 — Present &middot; Irvine, CA</p>
+                <p class="timeline-meta">Jun 2022 — Present &middot; Scottsdale, AZ → Irvine, CA</p>
                 <p class="timeline-desc">
                     Leading programs across Amazon's business security teams, driving cross-functional
                     initiatives that protect customers and scale with the business. Promoted to Manager
@@ -1028,30 +1086,72 @@
 
     <div class="divider"><hr></div>
 
-    <!-- BLOG -->
+    <!-- BLOG — hidden until there is a real post to publish.
+         Restore by uncommenting this block and switching the nav link
+         (#recommendations) back to #blog.
+
     <section id="blog" class="fade-in">
         <p class="section-label">Blog</p>
-        <h2 class="section-title">Thoughts & writing</h2>
+        <h2 class="section-title">Thoughts &amp; writing</h2>
         <div class="blog-grid">
             <a href="#" class="blog-card">
                 <p class="blog-date">Coming Soon</p>
                 <h3>From Retail Floor to Amazon Security</h3>
-                <p>How a non-traditional path through AT&T and Microsoft shaped a career in tech leadership.</p>
+                <p>How a non-traditional path through AT&amp;T and Microsoft shaped a career in tech leadership.</p>
                 <span class="blog-tag">career</span>
             </a>
             <a href="#" class="blog-card">
                 <p class="blog-date">Coming Soon</p>
-                <h3>The Tech I'm Excited About Right Now</h3>
-                <p>A lifelong tech geek's take on what's actually worth paying attention to.</p>
+                <h3>The Tech I am Excited About Right Now</h3>
+                <p>A lifelong tech geek&apos;s take on what is actually worth paying attention to.</p>
                 <span class="blog-tag">tech</span>
             </a>
             <a href="#" class="blog-card">
                 <p class="blog-date">Coming Soon</p>
                 <h3>Travel Log: Across the Pacific</h3>
-                <p>Highlights from our Philippines and Taiwan trip — temples, beaches, and pride.</p>
+                <p>Highlights from our Philippines and Taiwan trip &mdash; temples, beaches, and pride.</p>
                 <span class="blog-tag">travel</span>
             </a>
         </div>
+    </section>
+
+    <div class="divider"><hr></div>
+    -->
+
+    <!-- RECOMMENDATIONS -->
+    <section id="recommendations" class="fade-in">
+        <p class="section-label">Recommendations</p>
+        <h2 class="section-title">What colleagues say</h2>
+        <div class="quote-grid">
+            <figure class="quote-card">
+                <blockquote>
+                    Greg always brought a positive attitude to each project he managed. He has a unique
+                    ability to manage complex programs and projects and find solutions to help streamline
+                    the needs of the business. Greg is an exceptional leader, he was often the first call
+                    I made when I needed guidance or feedback.
+                </blockquote>
+                <figcaption>
+                    <span class="quote-name">David Haskins, MBA</span>
+                    <span class="quote-role">Employee Journey Leader, General Motors &middot; worked with Greg at AT&amp;T</span>
+                </figcaption>
+            </figure>
+            <figure class="quote-card">
+                <blockquote>
+                    Greg possesses a unique combination of skills that are very strong in technical acumen
+                    combined with strategic thinking and a focus on delivering results&hellip; His passion for
+                    improving the experience and his natural aptitude for innovation combined with masterful
+                    collaboration, negotiation and communication skills make him a powerful asset for any
+                    organization he supports.
+                </blockquote>
+                <figcaption>
+                    <span class="quote-name">Robben Kniffen-Rusu, MBA</span>
+                    <span class="quote-role">Transformational Leader &middot; managed Greg directly</span>
+                </figcaption>
+            </figure>
+        </div>
+        <p class="quote-source">
+            Recommendations from <a href="https://linkedin.com/in/iamgregwilcox" target="_blank" rel="noopener">LinkedIn</a>.
+        </p>
     </section>
 
     <div class="divider"><hr></div>
