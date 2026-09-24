@@ -1,0 +1,6 @@
+# Security contact for ggw.me (Greg Wilcox's personal site).
+# This is a static personal website with no user accounts or data collection.
+Contact: mailto:greg@ggw.me
+Expires: 2027-09-23T07:00:00.000Z
+Preferred-Languages: en
+Canonical: https://ggw.me/.well-known/security.txt
